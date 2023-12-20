@@ -13,6 +13,7 @@ CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
 ME_URL = reverse('user:me')
 
+
 def create_user(**params):
     """Create and return a new user."""
     return get_user_model().objects.create_user(**params)
@@ -65,7 +66,6 @@ class PublicUserApiTests(TestCase):
         ).exists()
         self.assertFalse(user_exists)
 
-
     def test_create_token_gor_user(self):
         """Test generates token for vailid credentials."""
         user_details = {
@@ -87,7 +87,7 @@ class PublicUserApiTests(TestCase):
     def test_create_token_bad_credentials(self):
         """Test returns error if credentials invalid."""
         create_user = {'email': 'test@example.com', 'password': 'badpass'}
-        
+
         payload = {'email': 'test@example.com', 'password': 'badpass'}
         res = self.client.post(TOKEN_URL, payload)
 
@@ -108,7 +108,7 @@ class PublicUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    
+
 class PrivateUserAPITests(TestCase):
     """Test API request that require authentication."""
 

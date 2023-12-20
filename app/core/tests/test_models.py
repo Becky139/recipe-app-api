@@ -1,4 +1,4 @@
-""" 
+"""
 Tests for models
 """
 from decimal import Decimal
