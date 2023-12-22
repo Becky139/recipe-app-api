@@ -1,5 +1,5 @@
 """
-Tests for models
+Tests for models.
 """
 from unittest.mock import patch
 from decimal import Decimal
@@ -10,8 +10,8 @@ from django.contrib.auth import get_user_model
 from core import models
 
 
-def create_user(email='user@exmple.com', password='testpass123'):
-    """Create and return a new user."""
+def create_user(email='user@example.com', password='testpass123'):
+    """Create a return a new user."""
     return get_user_model().objects.create_user(email, password)
 
 
@@ -19,7 +19,7 @@ class ModelTests(TestCase):
     """Test models."""
 
     def test_create_user_with_email_successful(self):
-        """Test creating a user wioth an email is successful."""
+        """Test creating a user with an email is successful."""
         email = 'test@example.com'
         password = 'testpass123'
         user = get_user_model().objects.create_user(
@@ -38,7 +38,6 @@ class ModelTests(TestCase):
             ['TEST3@EXAMPLE.com', 'TEST3@example.com'],
             ['test4@example.COM', 'test4@example.com'],
         ]
-
         for email, expected in sample_emails:
             user = get_user_model().objects.create_user(email, 'sample123')
             self.assertEqual(user.email, expected)
@@ -66,10 +65,10 @@ class ModelTests(TestCase):
         )
         recipe = models.Recipe.objects.create(
             user=user,
-            title='Simple recipe name',
+            title='Sample recipe name',
             time_minutes=5,
             price=Decimal('5.50'),
-            description='Sample recipe description.',
+            description='Sample receipe description.',
         )
 
         self.assertEqual(str(recipe), recipe.title)
