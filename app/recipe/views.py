@@ -1,5 +1,5 @@
 """
-Views for the recipe APIs.
+Views for the recipe APIs
 """
 from drf_spectacular.utils import (
     extend_schema_view,
@@ -42,8 +42,6 @@ from recipe import serializers
         ]
     )
 )
-
-
 class RecipeViewSet(viewsets.ModelViewSet):
     """View for manage recipe APIs."""
     serializer_class = serializers.RecipeDetailSerializer
@@ -76,12 +74,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return serializers.RecipeSerializer
         elif self.action == 'upload_image':
-            return serializers.RecipeImageSeralizer
+            return serializers.RecipeImageSerializer
 
         return self.serializer_class
 
     def perform_create(self, serializer):
-        """Create a new recipe"""
+        """Create a new recipe."""
         serializer.save(user=self.request.user)
 
     @action(methods=['POST'], detail=True, url_path='upload-image')
@@ -111,7 +109,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 class BaseRecipeAttrViewSet(mixins.DestroyModelMixin,
                             mixins.UpdateModelMixin,
                             mixins.ListModelMixin,
-                            viewsets.GenericViewSet,):
+                            viewsets.GenericViewSet):
     """Base viewset for recipe attributes."""
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
