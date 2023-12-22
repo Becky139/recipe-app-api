@@ -19,7 +19,7 @@ from core.models import (
     Tag,
     Ingredient,
 )
-                         
+
 from recipe.serializers import (
     RecipeSerializer,
     RecipeDetailSerializer,
@@ -322,7 +322,7 @@ class PrivateRecipeAPITests(TestCase):
             'title': 'Vietamese Soup',
             'time_minutes': 25,
             'price': '2.55',
-            'ingredients':[{'name': 'Lemon'}, {'name': 'Fish Sauce'}],
+            'ingredients': [{'name': 'Lemon'}, {'name': 'Fish Sauce'}],
         }
         res = self.client.post(RECIPES_URL, payload, format='json')
 
@@ -343,7 +343,7 @@ class PrivateRecipeAPITests(TestCase):
         """Test creating an ingredient when updating a recipe."""
         recipe = create_recipe(user=self.user)
 
-        payload = {'ingredients':[{'name': 'Limes'}]}
+        payload = {'ingredients': [{'name': 'Limes'}]}
         url = detail_url(recipe.id)
         res = self.client.patch(url, payload, format='json')
 

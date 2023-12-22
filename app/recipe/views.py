@@ -22,7 +22,7 @@ from core.models import (
     Recipe,
     Tag,
     Ingredient,
-) 
+)
 from recipe import serializers
 
 
@@ -77,9 +77,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return serializers.RecipeSerializer
         elif self.action == 'upload_image':
             return serializers.RecipeImageSeralizer
-        
+
         return self.serializer_class
-    
+
     def perform_create(self, serializer):
         """Create a new recipe"""
         serializer.save(user=self.request.user)
@@ -95,6 +95,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @extend_schema_view(
     list=extend_schema(
@@ -114,7 +115,7 @@ class BaseRecipeAttrViewSet(mixins.DestroyModelMixin,
     """Base viewset for recipe attributes."""
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    
+
     def get_queryset(self):
         """Filter queryset to authenticated user."""
         assigned_only = bool(
@@ -128,6 +129,7 @@ class BaseRecipeAttrViewSet(mixins.DestroyModelMixin,
             user=self.request.user
         ).order_by('-name').distinct()
 
+
 class TagViewSet(BaseRecipeAttrViewSet):
     """Manage tags in the database."""
     serializer_class = serializers.TagSerializer
@@ -138,4 +140,4 @@ class IngredientViewSet(BaseRecipeAttrViewSet):
     """Manage ingredients in the database."""
     serializer_class = serializers.IngredientSerializer
     queryset = Ingredient.objects.all()
-  
+
